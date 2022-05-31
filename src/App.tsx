@@ -18,7 +18,6 @@ const globalStyle = globalCss({
 });
 
 const LEFT_COL_WIDTH = 200;
-const LEFT_COL_MIN_WIDTH = 80;
 const RIGHT_COL_WIDTH = 320;
 const BOTTOM_ROW_HEIGHT = 48;
 
@@ -72,10 +71,17 @@ const SideRight = styled("div", {
 const SideContent = styled("div", {
   position: "absolute",
   inset: 0,
-  background: blue.blue3
+  background: blue.blue3,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center"
 });
 
 export default function ProjectView() {
+  const [sideLeftHidden, setSideLeftHidden] = React.useState(false);
+  const toggleSideLeft = () => {
+    setSideLeftHidden(!sideLeftHidden);
+  };
   globalStyle();
   useLayoutEffect(() => {
     setupOffsets();
@@ -86,7 +92,7 @@ export default function ProjectView() {
       <Header>
         <div>Header</div>
       </Header>
-      <SideLeft>
+      <SideLeft animate={{ x: sideLeftHidden ? "-100%" : 0 }}>
         <SideContent>Content</SideContent>
         <ResizeHorizontal
           align="left"
@@ -94,11 +100,12 @@ export default function ProjectView() {
           left={60}
           right={100}
           offset="sideLeft"
+          onColapsed={toggleSideLeft}
         />
       </SideLeft>
       <Main>
         <div style={{ flex: 1 }}>main</div>
-        <Console>
+        {/* <Console>
           <DragHandleVertical
             align="bottom"
             height={BOTTOM_ROW_HEIGHT}
@@ -107,7 +114,7 @@ export default function ProjectView() {
             offset="console"
           />
           <div>console</div>
-        </Console>
+        </Console> */}
       </Main>
       <SideRight>
         <ResizeHorizontal

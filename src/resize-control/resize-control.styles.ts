@@ -20,7 +20,7 @@ export const ResizeButton = styled("button", {
   cursor: "pointer",
   opacity: `var(--ds--resize-button--opacity,0)`,
   outline: 0,
-  transform: "translateX(-50%)",
+  transformOrigin: "50% 50%",
   transition:
     "background-color 100ms linear, color 100ms linear, opacity 350ms cubic-bezier(0.2,0,0,1)",
   "&:hover": {
@@ -41,13 +41,29 @@ export const ResizeButton = styled("button", {
     left: -8
   },
   variants: {
+    align: {
+      left: {
+        transform: "translateX(-50%)"
+      },
+      right: {
+        transform: "translateX(50%)"
+      }
+    },
     isSidebarCollapsed: {
       false: {
-        transform: "translateX(-50%) rotate(180deg)",
-        transformOrigin: "50% 50%"
+        transform: "translateX(-50%) rotate(180deg)"
       }
     }
   },
+  compoundVariants: [
+    {
+      align: "right",
+      isSidebarCollapsed: false,
+      css: {
+        transform: "translateX(50%) rotate(180deg)"
+      }
+    }
+  ],
   defaultVariants: {
     isSidebarCollapsed: false
   }
@@ -163,8 +179,7 @@ export const GrabArea = styled(motion.button, {
       true: {
         padding: 0,
         backgroundColor: "transparent",
-        border: 0,
-        cursor: "default"
+        border: 0
       }
     }
   },

@@ -21,6 +21,7 @@ interface ResizeHorizontalProps extends ResizeProps {
   align: "left" | "right";
   enabled?: boolean;
   collapsed?: boolean;
+  onColapsed?: () => void;
 }
 
 export function ResizeHorizontal({
@@ -30,19 +31,20 @@ export function ResizeHorizontal({
   align,
   offset,
   enabled = true,
-  collapsed = false
+  collapsed = false,
+  onColapsed
 }: ResizeHorizontalProps) {
   const rMotionX = useMotionValue(0);
   const [distance, setDistance] = React.useState(panelOffsets[offset]);
   const [isResizing, setIsResizing] = React.useState(false);
   const [isCollapsed, setIsCollapsed] = React.useState(collapsed);
 
-  const toggleSideBar = () => {
-    if (isResizing) {
-      return;
-    }
-    setIsCollapsed(!isCollapsed);
-  };
+  // const toggleSideBar = () => {
+  //   if (isResizing) {
+  //     return;
+  //   }
+  //   setIsCollapsed(!isCollapsed);
+  // };
 
   React.useEffect(() => {
     setDistance(panelOffsets[offset]);
@@ -110,9 +112,10 @@ export function ResizeHorizontal({
       <ResizeButton
         aria-expanded={!isCollapsed}
         type="button"
+        align={align}
         isSidebarCollapsed={isCollapsed}
         onMouseDown={(event) => event.preventDefault()}
-        onClick={toggleSideBar}
+        onClick={onColapsed}
       >
         <ChevronRightIcon />
         <div></div>
