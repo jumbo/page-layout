@@ -2,7 +2,7 @@ import { styled } from "@stitches/react";
 import { motion } from "framer-motion";
 
 // ResizeButton
-export const ResizeButton = styled("button", {
+export const ResizeButton = styled(motion.button, {
   width: 24,
   height: 24,
   padding: 0,
@@ -43,24 +43,32 @@ export const ResizeButton = styled("button", {
   variants: {
     align: {
       left: {
-        transform: "translateX(-50%)"
+        transform: "translateX(-50%) rotate(180deg)"
       },
       right: {
         transform: "translateX(50%)"
       }
     },
     isSidebarCollapsed: {
-      false: {
-        transform: "translateX(-50%) rotate(180deg)"
-      }
+      false: {},
+      true: {}
     }
   },
   compoundVariants: [
     {
-      align: "right",
-      isSidebarCollapsed: false,
+      align: "left",
+      isSidebarCollapsed: true,
       css: {
-        transform: "translateX(50%) rotate(180deg)"
+        transform: "translateX(calc(-50% + 14px))",
+        opacity: 1
+      }
+    },
+    {
+      align: "right",
+      isSidebarCollapsed: true,
+      css: {
+        transform: "translateX(calc(50% - 14px)) rotate(180deg)",
+        opacity: 1
       }
     }
   ],

@@ -38,13 +38,15 @@ export function ResizeHorizontal({
   const [distance, setDistance] = React.useState(panelOffsets[offset]);
   const [isResizing, setIsResizing] = React.useState(false);
   const [isCollapsed, setIsCollapsed] = React.useState(collapsed);
-
-  // const toggleSideBar = () => {
-  //   if (isResizing) {
-  //     return;
-  //   }
-  //   setIsCollapsed(!isCollapsed);
-  // };
+  console.log(isCollapsed);
+  const toggleSideBar = React.useCallback(() => {
+    if (isResizing) {
+      return;
+    }
+    if (onColapsed) onColapsed();
+    setIsCollapsed(!isCollapsed);
+    console.log(isCollapsed);
+  }, [isCollapsed, setIsCollapsed, isResizing, onColapsed]);
 
   React.useEffect(() => {
     setDistance(panelOffsets[offset]);
@@ -102,7 +104,7 @@ export function ResizeHorizontal({
         left: -left - distance,
         right: right - distance
       }}
-      dragElastic={0.2}
+      dragElastic={0}
       onDoubleClick={enabled ? togglePosition : undefined}
     >
       <Shadow isResizing={isResizing} align={align} />
@@ -115,7 +117,7 @@ export function ResizeHorizontal({
         align={align}
         isSidebarCollapsed={isCollapsed}
         onMouseDown={(event) => event.preventDefault()}
-        onClick={onColapsed}
+        onClick={toggleSideBar}
       >
         <ChevronRightIcon />
         <div></div>
