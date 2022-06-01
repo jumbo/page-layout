@@ -18,7 +18,7 @@ const globalStyle = globalCss({
 });
 
 const LEFT_COL_WIDTH = 200;
-const RIGHT_COL_WIDTH = 320;
+const RIGHT_COL_WIDTH = 280;
 const BOTTOM_ROW_HEIGHT = 48;
 
 const GridLayout = styled("div", {
@@ -62,7 +62,7 @@ const Console = styled("div", {
   borderTop: `1px solid ${gray.gray8}`
 });
 
-const SideRight = styled("div", {
+const SideRight = styled(motion.div, {
   position: "relative",
   gridArea: "sideRight",
   background: gray.gray6
@@ -79,8 +79,12 @@ const SideContent = styled("div", {
 
 export default function ProjectView() {
   const [sideLeftHidden, setSideLeftHidden] = React.useState(false);
+  const [sideRightHidden, setSideRightHidden] = React.useState(false);
   const toggleSideLeft = () => {
     setSideLeftHidden(!sideLeftHidden);
+  };
+  const toggleSideRight = () => {
+    setSideRightHidden(!sideRightHidden);
   };
   globalStyle();
   useLayoutEffect(() => {
@@ -116,13 +120,14 @@ export default function ProjectView() {
           <div>console</div>
         </Console> */}
       </Main>
-      <SideRight>
+      <SideRight animate={{ x: sideRightHidden ? "100%" : 0 }}>
         <ResizeHorizontal
           align="right"
           width={RIGHT_COL_WIDTH}
           left={100}
-          right={60}
+          right={100}
           offset="sideRight"
+          onColapsed={toggleSideRight}
         />
         <SideContent>SideRight</SideContent>
       </SideRight>

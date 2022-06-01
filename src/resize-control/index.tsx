@@ -38,14 +38,13 @@ export function ResizeHorizontal({
   const [distance, setDistance] = React.useState(panelOffsets[offset]);
   const [isResizing, setIsResizing] = React.useState(false);
   const [isCollapsed, setIsCollapsed] = React.useState(collapsed);
-  console.log(isCollapsed);
+
   const toggleSideBar = React.useCallback(() => {
     if (isResizing) {
       return;
     }
     if (onColapsed) onColapsed();
     setIsCollapsed(!isCollapsed);
-    console.log(isCollapsed);
   }, [isCollapsed, setIsCollapsed, isResizing, onColapsed]);
 
   React.useEffect(() => {

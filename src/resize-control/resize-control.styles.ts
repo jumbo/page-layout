@@ -67,7 +67,7 @@ export const ResizeButton = styled(motion.button, {
       align: "right",
       isSidebarCollapsed: true,
       css: {
-        transform: "translateX(calc(50% - 14px)) rotate(180deg)",
+        transform: "translateX(calc(50% - 20px)) rotate(180deg)",
         opacity: 1
       }
     }
